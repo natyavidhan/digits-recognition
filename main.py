@@ -33,6 +33,8 @@ class Window:
         self.canvas = pygame.Surface((250, 250))
         self.canvas.fill((0, 0, 0))
 
+        self.prediction = None
+
     def draw(self):
         if pygame.mouse.get_pressed()[0]:
             pos = pygame.mouse.get_pos()
@@ -57,9 +59,7 @@ class Window:
                 img_arr.append(L)
         
         result = self.clf.predict([img_arr])
-
-        print(result)
-        return result[0]
+        self.prediction = result[0]
 
 
     def run(self):
@@ -77,6 +77,15 @@ class Window:
             rect.center = (225, 25)
             self.screen.blit(text, rect)
             self.draw()
+            text = self.font.render('Press space to predict', True, (0, 0, 0))
+            rect = text.get_rect()
+            rect.center = (225, 475)
+            self.screen.blit(text, rect)
+
+            text = self.font.render('Prediction: ' + str(self.prediction), True, (0, 0, 0))
+            rect = text.get_rect()
+            rect.center = (225, 525)
+            self.screen.blit(text, rect)
 
             self.clock.tick(60)
             pygame.display.update()

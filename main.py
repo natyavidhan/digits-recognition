@@ -30,23 +30,23 @@ class Window:
         self.font = pygame.font.SysFont('Arial', 20)
         self.font_big = pygame.font.SysFont('Arial', 30)
 
-        self.canvas = pygame.Surface((350, 350))
+        self.canvas = pygame.Surface((250, 250))
         self.canvas.fill((0, 0, 0))
 
     def draw(self):
         if pygame.mouse.get_pressed()[0]:
             pos = pygame.mouse.get_pos()
-            pos = (pos[0] - 50, pos[1] - 50)
+            pos = (pos[0] - 100, pos[1] - 100)
             pygame.draw.circle(self.canvas, (255, 255, 255), pos, 5)
             pygame.display.update()
         if pygame.mouse.get_pressed()[2]:
             pos = pygame.mouse.get_pos()
-            pos = (pos[0] - 50, pos[1] - 50)
+            pos = (pos[0] - 100, pos[1] - 100)
             pygame.draw.circle(self.canvas, (0, 0, 0), pos, 5)
 
     def predict(self):
         data = pygame.image.tostring(self.canvas, 'RGB')
-        img = Image.frombytes('RGB', (350, 350), data)
+        img = Image.frombytes('RGB', (250, 250), data)
         img = img.resize((28, 28))
         img = np.array(img)
         img_arr = []
@@ -71,7 +71,7 @@ class Window:
                     if event.key == pygame.K_SPACE:
                         self.predict()
             self.screen.fill((255, 255, 255))
-            self.screen.blit(self.canvas, (50, 50))
+            self.screen.blit(self.canvas, (100, 100))
             text = self.font_big.render('Draw a digit', True, (0, 0, 0))
             rect = text.get_rect()
             rect.center = (225, 25)

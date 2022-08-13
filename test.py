@@ -14,6 +14,4 @@ for idx, val in enumerate(result):
     if val == test_out[idx]:
         score += 1
 
-print(test_in[0])
-
 print(score / len(result)*100)
